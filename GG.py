@@ -5,7 +5,7 @@ def generate_games_json(games_folder, output_file):
     games_list = []
     
     for game_file in os.listdir(games_folder):
-        if game_file.endswith('.exe'):
+        if game_file.endswith(('.exe', '.msi')):
             game_name = os.path.splitext(game_file)[0]
             game_size = os.path.getsize(os.path.join(games_folder, game_file))  # Get the file size
             game_info = {
