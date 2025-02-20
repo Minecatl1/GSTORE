@@ -28,14 +28,22 @@ document.addEventListener('DOMContentLoaded', () => {
         gameAuthor.textContent = `Author: ${game.author}`;
         gameSize.textContent = `Size: ${(game.size / (1024 * 1024)).toFixed(2)} MB`;
         installButton.onclick = () => installGame(game);
+
         gameListView.style.display = 'none';
         gameDetailView.style.display = 'block';
     }
 
     function installGame(game) {
+        const fileExtension = game.file_path.split('.').pop();
         const link = document.createElement('a');
         link.href = game.file_path;
-        link.download = `${game.name}.exe`;
+
+        if (fileExtension === 'exe') {
+            link.download = `${game.name}.exe`;
+        } else if (fileExtension === 'msi') {
+            link.download = `${game.name}.msi`;
+        }
+
         link.click();
         alert(`Installing ${game.name}`);
     }
